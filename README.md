@@ -1,7 +1,8 @@
 # Cyber Security
 
 ## My Information
-- Ammarin Khwankiri Student ID 084
+- Ammarin Khwankiri
+- 0568604050XXX
 
 ## ความคาดหวังของวิชานี้อยากได้อะไร
 - อยากได้ความรู้และประสบการณ์ในการแก้ปัญหาจริง
