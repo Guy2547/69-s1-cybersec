@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: 69-s1-db
+    ports:
+      - 54327:5432
+    environment:
+    -POSTGRES_PASSWORD=ammarin070747
+    -POSTGRES_USER=ammarin
+    -POSTGRES_DB=ammarin
+    volumes:
+    -C:\Users\guy20\69-s1-cybersec\data:/var/lib/postgresql/data
