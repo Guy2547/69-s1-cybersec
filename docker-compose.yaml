@@ -5,8 +5,17 @@ services:
     ports:
       - 54327:5432
     environment:
-    -POSTGRES_PASSWORD=ammarin070747
-    -POSTGRES_USER=ammarin
-    -POSTGRES_DB=ammarin
+      - POSTGRES_PASSWORD=ammarin070747
+      - POSTGRES_USER=ammarin
+      - POSTGRES_DB=ammarin
     volumes:
-    -C:\Users\guy20\69-s1-cybersec\data
+      - C:\Users\guy20\69-s1-cybersec\data:/var/lib/postgresql/data
+
+  admin:
+    image: dpage/pgadmin4
+    container_name: 69-s1-admin
+    ports:
+      - 8081:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=guy200887@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=ammarin070747
