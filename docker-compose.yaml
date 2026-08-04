@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=ammarin
       - POSTGRES_DB=ammarin
     volumes:
-      - C:\Users\guy20\69-s1-cybersec\data:/var/lib/postgresql/data
+      - ./data-postgres:/var/lib/postgresql/data
 
   admin:
     image: dpage/pgadmin4
@@ -19,4 +19,7 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=guy200887@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=ammarin070747
+
+    volumes:
+      data-postgres:
       
