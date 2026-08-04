@@ -20,6 +20,5 @@ services:
       - PGADMIN_DEFAULT_EMAIL=guy200887@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=ammarin070747
 
-    volumes:
-      data-postgres:
-      
+volumes:
+  data-postgres:
