@@ -2,27 +2,57 @@ services:
   db:
     image: postgres:16-alpine
     container_name: 69-s1-db
-    ports:
-      - 54327:5432
     environment:
       - POSTGRES_PASSWORD=ammarin070747
       - POSTGRES_USER=ammarin
       - POSTGRES_DB=ammarin
     volumes:
       - ./data-postgres:/var/lib/postgresql/data
-      - ./data-pgadmin:/var/lib/pgadmin
+
+  app:
+    image: prawee/strapi
+    container_name: 69-s1-app
+    ports:
+      - 9092:1337
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=ammarin
+      - DATABASE_USERNAME=ammarin
+      - DATABASE_PASSWORD=ammarin070747
+      - APP_KEYS=key1ChangeThis,key2ChangeThis,key3ChangeThis,key4ChangeThis
+      - API_TOKEN_SALT=changeThisApiTokenSalt
+      - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
+      - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
+      - JWT_SECRET=changeThisJwtSecret
+    volumes:
+      - ./data-app:/opt/app
+    depends_on:
+      - db
 
   admin:
-    image: dpage/pgadmin4
+    image: prawee/strapi
     container_name: 69-s1-admin
-    ports:
-      - 8081:80
     environment:
-      - PGADMIN_DEFAULT_EMAIL=guy200887@gmail.com
-      - PGADMIN_DEFAULT_PASSWORD=ammarin070747
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=ammarin
+      - DATABASE_USERNAME=ammarin
+      - DATABASE_PASSWORD=ammarin070747
+      - APP_KEYS=key1ChangeThis,key2ChangeThis,key3ChangeThis,key4ChangeThis
+      - API_TOKEN_SALT=changeThisApiTokenSalt
+      - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
+      - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
+      - JWT_SECRET=changeThisJwtSecret
     volumes:
-      - ./data-pgadmin:/var/lib/pgadmin
+      - ./data-admin:/opt/app
+    depends_on:
+      - db
+      - app
 
 volumes:
   data-postgres:
-  data-pgadmin:
+  data-app:
+  data-admin:
