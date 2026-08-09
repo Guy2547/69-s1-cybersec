@@ -26,8 +26,6 @@ services:
       - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
       - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
       - JWT_SECRET=changeThisJwtSecret
-    volumes:
-      - ./data-app:/opt/app
     depends_on:
       - db
 
@@ -46,13 +44,9 @@ services:
       - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
       - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
       - JWT_SECRET=changeThisJwtSecret
-    volumes:
-      - ./data-admin:/opt/app
     depends_on:
       - db
       - app
 
 volumes:
   data-postgres:
-  data-app:
-  data-admin:
