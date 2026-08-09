@@ -3,9 +3,9 @@ services:
     image: postgres:16-alpine
     container_name: 69-s1-db
     environment:
-      - POSTGRES_PASSWORD=ammarin070747
-      - POSTGRES_USER=ammarin
-      - POSTGRES_DB=ammarin
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - ./data-postgres:/var/lib/postgresql/data
 
@@ -18,14 +18,14 @@ services:
       - DATABASE_CLIENT=postgres
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
-      - DATABASE_NAME=ammarin
-      - DATABASE_USERNAME=ammarin
-      - DATABASE_PASSWORD=ammarin070747
-      - APP_KEYS=key1ChangeThis,key2ChangeThis,key3ChangeThis,key4ChangeThis
-      - API_TOKEN_SALT=changeThisApiTokenSalt
-      - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
-      - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
-      - JWT_SECRET=changeThisJwtSecret
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - APP_KEYS=${APP_KEYS}
+      - API_TOKEN_SALT=${API_TOKEN_SALT}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
+      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - db
 
@@ -36,14 +36,14 @@ services:
       - DATABASE_CLIENT=postgres
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
-      - DATABASE_NAME=ammarin
-      - DATABASE_USERNAME=ammarin
-      - DATABASE_PASSWORD=ammarin070747
-      - APP_KEYS=key1ChangeThis,key2ChangeThis,key3ChangeThis,key4ChangeThis
-      - API_TOKEN_SALT=changeThisApiTokenSalt
-      - ADMIN_JWT_SECRET=changeThisAdminJwtSecret
-      - TRANSFER_TOKEN_SALT=changeThisTransferTokenSalt
-      - JWT_SECRET=changeThisJwtSecret
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - APP_KEYS=${APP_KEYS}
+      - API_TOKEN_SALT=${API_TOKEN_SALT}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
+      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - db
       - app
