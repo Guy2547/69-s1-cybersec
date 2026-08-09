@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: 69-s1-db
+    container_name: 69-s2-db
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_USER=${DATABASE_USERNAME}
@@ -11,7 +11,7 @@ services:
 
   app:
     image: prawee/strapi
-    container_name: 69-s1-app
+    container_name: 69-s2-app
     ports:
       - 9092:1337
     environment:
@@ -31,7 +31,7 @@ services:
 
   admin:
     image: prawee/strapi
-    container_name: 69-s1-admin
+    container_name: 69-s2-admin
     environment:
       - DATABASE_CLIENT=postgres
       - DATABASE_HOST=db
