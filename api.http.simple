@@ -6,11 +6,11 @@ GET http://localhost:9092/admin/auth/register-admin
 content-type: application/json
 
 {
-  "firstName": "Ammarin",
-  "lastName": "Khwankiri",
-  "email": "guy200887@gmail.com",
-  "password": "Ammarin070747",
-  "confirmPassword": "Ammarin070747"
+  "firstName": "",
+  "lastName": ",
+  "email": "",
+  "password": "",
+  "confirmPassword": ""
 }
 ###                                     
 
@@ -19,9 +19,9 @@ POST http://localhost:9092/admin/login
 content-type: application/json
 
 {
-  "email": "guy200887@gmail.com",
-  "password": "Ammarin070747",
-  "rememberMe": "false"
+  "email": "",
+  "password": "",
+  "rememberMe": ""
 }
 ###
 
@@ -35,6 +35,6 @@ GET http://localhost:9092/admin/auth/forgot-password
 content-type: application/json
 
 {
-  "email": "guy200887@gmail.com"
+  "email": ""
 }
 ###
