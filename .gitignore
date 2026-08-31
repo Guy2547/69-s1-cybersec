@@ -4,3 +4,5 @@ data-postgres/
 data-pgadmin/
 node_modules/
 api.http
+AGENTS.md
+README.md
