@@ -7,7 +7,7 @@ content-type: application/json
 
 {
   "firstName": "",
-  "lastName": ",
+  "lastName": "",
   "email": "",
   "password": "",
   "confirmPassword": ""
@@ -38,3 +38,39 @@ content-type: application/json
   "email": ""
 }
 ###
+
+##user
+
+### User Signup (register normal user)
+POST http://localhost:9092/api/auth/local/register
+content-type: application/json
+
+{
+  "username": "",
+  "email": "",
+  "password": ""
+}
+
+
+###
+# @name userLogin
+POST http://localhost:9092/api/auth/local
+content-type: application/json
+
+{
+  "identifier": "",
+  "password": ""
+}
+
+
+###
+GET http://localhost:9092/api/users/me
+Authorization: Bearer {{userLogin.response.body.$.jwt}}
+
+###
+POST http://localhost:9092/api/auth/forgot-password
+content-type: application/json
+
+{
+  "email": ""
+}

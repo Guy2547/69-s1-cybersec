@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: 69-s2-db
+    container_name: 69-s1-db
     ports:
       - 54327:5432
     environment:
@@ -10,10 +10,15 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - ./data-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   app:
     image: prawee/strapi
-    container_name: 69-s2-app
+    container_name: 69-s1-app
     ports:
       - 9092:1337
     environment:
@@ -29,26 +34,17 @@ services:
       - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
       - JWT_SECRET=${JWT_SECRET}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   admin:
-    image: prawee/strapi
-    container_name: 69-s2-admin
+    image: dpage/pgadmin4
+    container_name: 69-s1-admin
+    ports:
+      - 8081:80
     environment:
-      - DATABASE_CLIENT=postgres
-      - DATABASE_HOST=db
-      - DATABASE_PORT=5432
-      - DATABASE_NAME=${DATABASE_NAME}
-      - DATABASE_USERNAME=${DATABASE_USERNAME}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - APP_KEYS=${APP_KEYS}
-      - API_TOKEN_SALT=${API_TOKEN_SALT}
-      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
-      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
-      - JWT_SECRET=${JWT_SECRET}
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
       - db
       - app
-
-volumes:
-  data-postgres:
