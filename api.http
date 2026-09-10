@@ -1,0 +1,119 @@
+##api
+
+### Signup (register first admin)
+POST http://localhost:9092/admin/register-admin
+content-type: application/json
+
+{
+  "firstname": "{{$dotenv ADMIN_FIRSTNAME}}",
+  "lastname": "{{$dotenv ADMIN_LASTNAME}}",
+  "email": "{{$dotenv ADMIN_EMAIL}}",
+  "password": "{{$dotenv ADMIN_PASSWORD}}"
+}
+
+###
+# @name login
+POST http://localhost:9092/admin/login
+content-type: application/json
+
+{
+  "email": "{{$dotenv ADMIN_EMAIL}}",
+  "password": "{{$dotenv ADMIN_PASSWORD}}",
+  "rememberMe": false
+}
+
+###
+GET http://localhost:9092/admin/users/me
+Authorization: Bearer {{login.response.body.$.data.token}}
+
+### Step 1: request reset email (returns 204 empty, even if email unknown)
+# @name adminForgot
+POST http://localhost:9092/admin/forgot-password
+content-type: application/json
+
+{
+  "email": "{{$dotenv ADMIN_FORGOT_EMAIL}}"
+}
+
+### Step 2: reset with the token from the email link (?code=...)
+# (forgot returns no token — copy it from the email, or pgAdmin -> admin_users.reset_password_token)
+# Field MUST be `resetPasswordToken` (not `code`).
+POST http://localhost:9092/admin/reset-password
+content-type: application/json
+
+{
+  "resetPasswordToken": "PASTE_TOKEN_HERE",
+  "password": "NewAdminPass123!"
+}
+# Expected: 200 with {"data":{"token":"...","user":{...}}}
+
+### Step 3: login with the NEW password to verify
+POST http://localhost:9092/admin/login
+content-type: application/json
+
+{
+  "email": "{{$dotenv ADMIN_EMAIL}}",
+  "password": "NewAdminPass123!"
+}
+# Expected: 200 with {"data":{"token":"...","user":{...}}}
+
+##user
+
+### User Signup (register normal user)
+POST http://localhost:9092/api/auth/local/register
+content-type: application/json
+
+{
+  "username": "{{$dotenv DEMO_USERNAME}}",
+  "email": "{{$dotenv DEMO_EMAIL}}",
+  "password": "{{$dotenv DEMO_PASSWORD}}"
+}
+
+
+###
+# @name userLogin
+POST http://localhost:9092/api/auth/local
+content-type: application/json
+
+{
+  "identifier": "{{$dotenv DEMO_USERNAME}}",
+  "password": "{{$dotenv DEMO_PASSWORD}}"
+}
+
+# Expected: 200 OK with jwt and user payload.
+
+###
+GET http://localhost:9092/api/users/me
+Authorization: Bearer {{userLogin.response.body.$.jwt}}
+
+### User Step 1: request reset email (always 200 {ok:true}, even if email unknown)
+# @name userForgot
+POST http://localhost:9092/api/auth/forgot-password
+content-type: application/json
+
+{
+  "email": "{{$dotenv USER_FORGOT_EMAIL}}"
+}
+
+### User Step 2: reset with the code from the email link (?code=...)
+# (forgot returns no code — copy it from the email, or pgAdmin -> up_users.reset_password_token)
+# Needs ALL 3 fields; password MUST match passwordConfirmation.
+POST http://localhost:9092/api/auth/reset-password
+content-type: application/json
+
+{
+  "code": "PASTE_CODE_HERE",
+  "password": "NewUserPass123!",
+  "passwordConfirmation": "NewUserPass123!"
+}
+# Expected: 200 with {"jwt":"...","user":{...}}
+
+### User Step 3: login with the NEW password to verify
+POST http://localhost:9092/api/auth/local
+content-type: application/json
+
+{
+  "identifier": "{{$dotenv DEMO_USERNAME}}",
+  "password": "NewUserPass123!"
+}
+# Expected: 200 with {"jwt":"...","user":{...}}

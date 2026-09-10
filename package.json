@@ -1,0 +1,19 @@
+{
+  "name": "69-s1-cybersec",
+  "version": "1.0.0",
+  "description": "- Ammarin Khwankiri\r - 0568604050XXX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guy2547/69-s1-cybersec.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Guy2547/69-s1-cybersec/issues"
+  },
+  "homepage": "https://github.com/Guy2547/69-s1-cybersec#readme"
+}
