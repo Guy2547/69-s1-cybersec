@@ -33,6 +33,18 @@ services:
       - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
       - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
       - JWT_SECRET=${JWT_SECRET}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-sendmail}
+      - EMAIL_SMTP_HOST=${EMAIL_SMTP_HOST:-smtp.gmail.com}
+      - EMAIL_SMTP_PORT=${EMAIL_SMTP_PORT:-587}
+      - EMAIL_SMTP_USER=${EMAIL_SMTP_USER:-}
+      - EMAIL_SMTP_PASS=${EMAIL_SMTP_PASS:-}
+      - EMAIL_FROM=${EMAIL_FROM:-}
+      - EMAIL_REPLY_TO=${EMAIL_REPLY_TO:-}
+      - NODE_PATH=/opt/email-extra/node_modules
+    volumes:
+      - ./config/plugins.js:/opt/app/config/plugins.js:ro
+      - ./email-extra/node_modules/@strapi/provider-email-nodemailer:/opt/node_modules/@strapi/provider-email-nodemailer:ro
+      - ./email-extra/node_modules/nodemailer:/opt/node_modules/nodemailer:ro
     depends_on:
       db:
         condition: service_healthy
